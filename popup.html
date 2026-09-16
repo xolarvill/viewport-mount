@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <title>Viewport Mount</title>
+  <style>
+    /* 关键样式内联：popup 窗口一出现就是正确尺寸和深色底，避免白屏/白方块 */
+    html, body {
+      width: 384px;
+      height: 560px;
+      margin: 0;
+      background: #14161a;
+      color: #e6e9ef;
+      overflow: hidden;
+    }
+  </style>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <header class="head">
+    <div class="brand"><span class="dot"></span>Viewport Mount</div>
+    <div class="status" id="status">选择设备 → 并排预览，或模拟到当前标签页</div>
+  </header>
+
+  <div class="urlrow">
+    <input id="url" type="text" spellcheck="false" placeholder="https://example.com" />
+    <button id="pickTab" class="icon" title="使用当前标签页地址">↺</button>
+  </div>
+
+  <div class="scroll" id="groups"></div>
+
+  <div class="custom">
+    <input id="cw" type="number" min="120" max="9999" value="1024" />
+    <span class="x">×</span>
+    <input id="ch" type="number" min="120" max="9999" value="768" />
+    <button id="addCustom" class="btn ghost">添加自定义</button>
+  </div>
+
+  <footer class="actions">
+    <button id="preview" class="btn primary">并排预览 <span class="count" id="count">0</span></button>
+    <button id="emulate" class="btn ghost" disabled>模拟到当前页</button>
+    <button id="restore" class="btn ghost">还原</button>
+  </footer>
+
+  <script src="presets.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

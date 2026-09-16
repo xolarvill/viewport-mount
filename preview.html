@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <title>Viewport Mount · 并排预览</title>
+  <link rel="stylesheet" href="preview.css" />
+</head>
+<body>
+  <header class="bar">
+    <div class="brand"><span class="dot"></span>Viewport Mount</div>
+    <div class="urlwrap">
+      <input id="url" type="text" spellcheck="false" placeholder="输入网址，回车加载到所有视口" />
+      <button id="load" class="btn">加载</button>
+    </div>
+    <button id="refreshAll" class="icon" title="刷新全部视口">↻</button>
+    <label class="field">缩放
+      <select id="scale">
+        <option value="fit-h">适应高度</option>
+        <option value="fit-w">适应宽度</option>
+        <option value="1">100%</option>
+        <option value="0.75">75%</option>
+        <option value="0.5">50%</option>
+        <option value="0.25">25%</option>
+        <option value="1.5">150%</option>
+      </select>
+    </label>
+    <label class="check"><input type="checkbox" id="sync" /> 同步滚动</label>
+    <button id="openAll" class="btn ghost">真实窗口打开</button>
+    <button id="add" class="btn">＋ 添加设备</button>
+  </header>
+
+  <main id="stage" class="stage"></main>
+
+  <div id="picker" class="picker" hidden>
+    <div class="picker-panel">
+      <div class="picker-head">
+        <strong>添加 / 移除设备</strong>
+        <button id="pickerClose" class="icon">✕</button>
+      </div>
+      <div id="pickerGroups" class="picker-body"></div>
+      <div class="picker-foot">
+        <input id="pw" type="number" min="120" max="9999" value="1024" />
+        <span class="x">×</span>
+        <input id="ph" type="number" min="120" max="9999" value="768" />
+        <button id="padd" class="btn ghost">添加自定义</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <script src="presets.js"></script>
+  <script src="preview.js"></script>
+</body>
+</html>
