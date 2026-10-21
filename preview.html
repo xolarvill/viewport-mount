@@ -4,12 +4,15 @@
   <meta charset="utf-8" />
   <title>Viewport Mount · 并排预览</title>
   <link rel="stylesheet" href="preview.css" />
+  <link rel="stylesheet" href="history.css" />
 </head>
 <body>
   <header class="bar">
-    <div class="brand"><span class="dot"></span>Viewport Mount</div>
     <div class="urlwrap">
-      <input id="url" type="text" spellcheck="false" placeholder="输入网址，回车加载到所有视口" />
+      <div class="addr">
+        <input id="url" type="text" spellcheck="false" autocomplete="off" placeholder="输入网址，回车加载到所有视口" />
+        <div class="history" id="urlHistory" hidden></div>
+      </div>
       <button id="load" class="btn">加载</button>
     </div>
     <button id="refreshAll" class="icon" title="刷新全部视口">↻</button>
@@ -50,6 +53,7 @@
   <div id="toast" class="toast" hidden></div>
 
   <script src="presets.js"></script>
+  <script src="history.js"></script>
   <script src="preview.js"></script>
 </body>
 </html>

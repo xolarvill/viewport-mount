@@ -183,6 +183,14 @@ function syncUI() {
 }
 
 function bind() {
+  /* 先绑定历史记录下拉，Enter 选中建议时会拦截事件，避免再触发一次预览 */
+  if (window.VMHistory) {
+    window.VMHistory.attach($('#url'), {
+      panel: $('#urlHistory'),
+      onPick: () => openPreview()
+    });
+  }
+
   $('#addCustom').addEventListener('click', addCustom);
   $('#preview').addEventListener('click', openPreview);
   $('#emulate').addEventListener('click', emulateCurrentTab);
@@ -213,6 +221,7 @@ async function openPreview() {
     devices = window.VM_DEFAULT_IDS.map((id) => findDevice(id)).filter(Boolean).map(cloneDevice);
   }
   const url = normalizeUrl($('#url').value);
+  if (window.VMHistory) await window.VMHistory.add(url);
   await chrome.storage.local.set({ [K_PENDING]: { url, devices, ts: Date.now() } });
   await chrome.tabs.create({ url: chrome.runtime.getURL('preview.html') });
   window.close();

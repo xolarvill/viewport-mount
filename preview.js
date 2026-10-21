@@ -325,6 +325,14 @@ function openWindow(device) {
 }
 
 function bind() {
+  /* 先绑定历史记录下拉，Enter 选中建议时会拦截事件，避免再触发一次加载 */
+  if (window.VMHistory) {
+    window.VMHistory.attach($('#url'), {
+      panel: $('#urlHistory'),
+      onPick: () => loadUrl()
+    });
+  }
+
   $('#load').addEventListener('click', loadUrl);
   $('#url').addEventListener('keydown', (event) => {
     if (event.key === 'Enter') loadUrl();
@@ -386,6 +394,7 @@ function loadUrl() {
   }
   state.url = url;
   $('#url').value = url;
+  if (window.VMHistory) window.VMHistory.add(url);
   for (const el of stage.querySelectorAll('.device')) {
     const part = parts.get(el);
     if (part) part.iframe.src = url;

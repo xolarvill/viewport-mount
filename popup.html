@@ -15,15 +15,18 @@
     }
   </style>
   <link rel="stylesheet" href="popup.css" />
+  <link rel="stylesheet" href="history.css" />
 </head>
 <body>
   <header class="head">
-    <div class="brand"><span class="dot"></span>Viewport Mount</div>
     <div class="status" id="status">选择设备 → 并排预览，或模拟到当前标签页</div>
   </header>
 
   <div class="urlrow">
-    <input id="url" type="text" spellcheck="false" placeholder="https://example.com" />
+    <div class="addr">
+      <input id="url" type="text" spellcheck="false" autocomplete="off" placeholder="https://example.com" />
+      <div class="history" id="urlHistory" hidden></div>
+    </div>
     <button id="pickTab" class="icon" title="使用当前标签页地址">↺</button>
   </div>
 
@@ -43,6 +46,7 @@
   </footer>
 
   <script src="presets.js"></script>
+  <script src="history.js"></script>
   <script src="popup.js"></script>
 </body>
 </html>
