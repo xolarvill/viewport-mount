@@ -21,6 +21,7 @@ Viewport Mount 是一个纯原生 JavaScript 的 Chrome 扩展（Manifest V3，�
 - **并排多视口**：任意组合设备，每个 iframe 以设备的精确宽高渲染，再等比缩放适配窗口，媒体查询断点判断与真实设备一致。
 - **内置设备与断点**：iPhone / Pixel / Galaxy、iPad / Surface、MacBook、1080p / 2K / 带鱼屏 / 4K，以及 Tailwind（`sm`–`2xl`）和 Bootstrap（`sm`–`xxl`）断点。
 - **自定义尺寸**：popup 和预览页均可添加 120×120 – 9999×9999 的自定义视口；自定义设备持久化保存、可随时删除。
+- **最近访问**：地址栏会像 Chrome 一样在聚焦或输入时给出最近访问过的地址建议，支持键盘选择、单条删除与一键清空。
 - **缩放策略**：适应高度、适应宽度、25% / 50% / 75% / 100% / 150%。
 - **同步滚动**：多个视口按滚动比例联动，方便逐段对比同一内容。
 - **单视口操作**：直接修改宽高、旋转 90°、刷新、移除、在真实独立窗口中打开。
@@ -55,7 +56,7 @@ git clone https://github.com/xolarvill/viewport-mount.git
 ### 并排预览
 
 1. 点击工具栏中的 Viewport Mount 图标。popup 会自动填入当前标签页的地址（`chrome://` 等浏览器内部页面除外）。
-2. 在地址栏输入网址，支持省略协议：`localhost` 和 IP 地址自动补 `http://`，其余补 `https://`。也可以点击 `↺` 重新拾取当前标签页地址。
+2. 在地址栏输入网址，支持省略协议：`localhost` 和 IP 地址自动补 `http://`，其余补 `https://`。也可以点击 `↺` 重新拾取当前标签页地址；聚焦或输入时，下拉列表会显示最近访问过的地址（`↑` / `↓` 选择，`Enter` 打开，`Esc` 收起）。
 3. 点选要对比的设备。若一个都不选，预览页会使用默认组合 **iPhone 15**、**iPad Air**、**Tailwind lg 1024**。
 4. 点击「并排预览」。预览页支持：
    - 顶部地址栏随时把新网址加载到全部视口；`↻` 刷新全部视口。
@@ -121,6 +122,8 @@ viewport-mount/
 ├── preview.css
 ├── preview.js           # 视口渲染、缩放、DNR 放行、调试协议模拟
 ├── presets.js           # 设备 / 断点预设，popup 与预览页共用
+├── history.js           # 最近访问地址的存储与下拉交互，popup 与预览页共用
+├── history.css
 ├── content.js           # 同步滚动桥（按需注入 iframe）
 └── icons/               # 16 / 32 / 48 / 128 图标
 ```
@@ -133,7 +136,7 @@ viewport-mount/
 - 打包发布文件（Windows PowerShell）：
 
 ```powershell
-Compress-Archive -Path manifest.json,popup.html,popup.css,popup.js,preview.html,preview.css,preview.js,presets.js,content.js,icons -DestinationPath dist/viewport-mount-v1.0.0.zip
+Compress-Archive -Path manifest.json,popup.html,popup.css,popup.js,preview.html,preview.css,preview.js,presets.js,history.js,history.css,content.js,icons -DestinationPath dist/viewport-mount-v1.0.0.zip
 ```
 
 ZIP 根目录即扩展根目录，解压后可直接「加载已解压的扩展程序」。
